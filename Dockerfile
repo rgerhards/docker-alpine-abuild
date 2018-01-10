@@ -1,7 +1,8 @@
-FROM alpine:latest
-ADD rgerhards@adiscon.com-5a54927f.rsa.pub /etc/apk/keys/rgerhards@adiscon.com-5a54927f.rsa.pub
-#ADD rger-5a54d18f.rsa.pub /etc/apk/keys/rger-5a54d18f.rsa.pub 
-RUN echo "http://build.rsyslog.com/alpine" >> /etc/apk/repositories \
+# use specific version here as we need to know what we build to
+# --> need to go into correct package archive on server
+FROM alpine:3.7
+ADD rsyslog@lists.adiscon.com-5a55e598.rsa.pub /etc/apk/keys/rsyslog@lists.adiscon.com-5a55e598.rsa.pub
+RUN echo "http://build.rsyslog.com/alpine/3.7/unstable" >> /etc/apk/repositories \
   && apk update \
   && apk --no-cache add alpine-sdk coreutils cmake \
   && adduser -G abuild -g "Alpine Package Builder" -s /bin/ash -D builder \
